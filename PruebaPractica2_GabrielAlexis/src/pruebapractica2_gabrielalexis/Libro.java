@@ -4,12 +4,14 @@
  */
 package pruebapractica2_gabrielalexis;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author gabri
  */
 public class Libro {
-    String Nombre,Autor,dueño;
+    String Nombre, Autor, dueño;
     int id;
     boolean Disponible = true;
 
@@ -60,17 +62,35 @@ public class Libro {
         this.Disponible = Disponible;
     }
 
-    @Override
-    public String toString() {
-        if(Disponible){
-            return "ID=" + id + ", Nombre=" + Nombre + ", Autor=" + Autor + ", Disponibilidad=" + "Esta disponible" + '}';
-        }
-        else{
-            return "ID=" + id + ", Nombre=" + Nombre + ", Autor=" + Autor + ", Disponibilidad=" + "El libro ha sido prestado" + ", dueño=" + dueño + '}';
+    public static void agregarLibro(ArrayList<Libro> Disponibles, String nombreLibro, String Autor, int id) {
+        Libro libro = new Libro(nombreLibro, Autor, "", id);
+        Disponibles.add(libro);
+        System.out.println("Libro agregado con exito");
+    }
+
+    public static void prestarLibro(ArrayList<Libro> Disponibles, ArrayList<Libro> prestados, String nombre, int pos) {
+        if (pos < Disponibles.size()) {
+            Disponibles.get(pos).setDisponible(false);
+            Disponibles.get(pos).setDueño(nombre);
+            prestados.add(Disponibles.get(pos));
+            Disponibles.remove(pos);
+            System.out.println("Libro prestado con exito");
+            System.out.println("Tus libros prestados son: ");
+
+        } else {
+            System.out.println("Posicion no valida");
         }
     }
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        if (Disponible) {
+            return "ID=" + id + ", Nombre=" + Nombre + ", Autor=" + Autor + ", Disponibilidad=" + "Esta disponible"
+                    + '}';
+        } else {
+            return "ID=" + id + ", Nombre=" + Nombre + ", Autor=" + Autor + ", Disponibilidad="
+                    + "El libro ha sido prestado" + ", dueño=" + dueño + '}';
+        }
+    }
+
 }

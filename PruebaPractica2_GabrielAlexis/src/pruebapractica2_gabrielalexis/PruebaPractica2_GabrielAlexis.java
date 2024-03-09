@@ -29,7 +29,7 @@ public class PruebaPractica2_GabrielAlexis {
         int opt = 0;
         while (opt != 7) {
             System.out.println(
-                    "1. Agregar libro\n2. Prestar libro\n3. Regresar libro\n4. Buscar libro\n5. Mostrar libros disponibles\n6. Mostrar libros prestados\n7. Salir\nElije una opcion:\n");
+                    "\n1. Agregar libro\n2. Prestar libro\n3. Regresar libro\n4. Buscar libro\n5. Mostrar libros disponibles\n6. Mostrar libros prestados\n7. Salir\nElije una opcion:\n");
             opt = input.nextInt();
             switch (opt) {
                 case 1:
@@ -39,10 +39,7 @@ public class PruebaPractica2_GabrielAlexis {
                     System.out.println("Ingrese el autor del libro: ");
                     String Autor = input.nextLine();
                     int id = rand.nextInt(100, 1000);
-                    Libro libro = new Libro(nombreLibro, Autor, "", id);
-                    Disponibles.add(libro);
-                    System.out.println("Libro agregado con exito");
-
+                    Libro.agregarLibro(Disponibles, nombreLibro, Autor, id);
                     break;
                 case 2:
                     System.out.println("Los libros disponibles son: ");
@@ -52,18 +49,8 @@ public class PruebaPractica2_GabrielAlexis {
                     String nombre = input.nextLine();
                     System.out.println("Ingrese la posicion del libro que se prestara: ");
                     int pos = input.nextInt();
-                    if (pos < Disponibles.size()) {
-                        Disponibles.get(pos).setDisponible(false);
-                        Disponibles.get(pos).setDueño(nombre);
-                        prestados.add(Disponibles.get(pos));
-                        Disponibles.remove(pos);
-                    } else {
-                        System.out.println("Posicion no valida");
-                    }
-                    System.out.println("Libro prestado con exito");
-                    System.out.println("Tus libros prestados son: ");
+                    Libro.prestarLibro(Disponibles, prestados, nombre, pos);
                     mostrarLibros(prestados);
-
                     break;
                 case 3:
                     System.out.println("Los libros prestados son: ");
